@@ -1,6 +1,8 @@
 # GSp(4) Hecke operators
 
-This is a companion to the paper ***Mass equidistribution for lifts on hyperbolic 4-manifolds***, by *Alexandre de Faveri* and *Zvi Shem-Tov*.
+This is a companion to the paper
+
+> ***Mass equidistribution for lifts on hyperbolic 4-manifolds***, by *Alexandre de Faveri* and *Zvi Shem-Tov*.
 
 It provides a Sage implementation of the Satake isomorphism for the Hecke algebra of $GSp_4(\mathbb{Q}\_{p})$.
 
@@ -10,9 +12,23 @@ The Jupyter notebook `GSp(4).ipynb` provides two main functions: `satake(n, m, l
 
 Actually we work modulo the center, i.e. over $PGSp_4(\mathbb{Q}\_{p})$, so this decomposition is in terms of (the double cosets corresponding to) $T\_{0,m,l}$ satisfying the positivity condition $0 \leq 2m \leq l$. The code can be easily adapted to handle the general case.
 
-## Mathematical conventions
+### Mathematical conventions
 
 See Appendix B of the aforementioned paper for the conventions used in the code.
+
+## Running
+
+Start Sage’s Jupyter notebook
+
+```bash
+sage -n jupyter
+```
+
+and open `GSp(4).ipynb`.
+
+### Requirements
+
+- Tested with SageMath 10.8
 
 ## Acknowledgements
 
