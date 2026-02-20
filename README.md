@@ -6,7 +6,7 @@ It provides a Sage implementation of the Satake isomorphism for the Hecke algebr
 
 ## Contents
 
-The Jupyter notebook `GSp(4).ipynb` provides two main functions: `satake(n, m, l)`, which computes the image of (the double coset corresponding to) $T_{n,m,l} := \mathrm{diag}(p^n,p^m,p^{l-n},p^{l-m})$, and `find_sols(f)`, which decomposes the inverse image of an arbitrary $f$ into a linear combination of double cosets.
+The Jupyter notebook `GSp(4).ipynb` provides two main functions: `satake(n, m, l)`, which computes the image under the Satake isomorphism of (the double coset corresponding to) $T_{n,m,l} := \mathrm{diag}(p^n,p^m,p^{l-n},p^{l-m})$, and `find_sols(f)`, which decomposes the inverse image of an arbitrary $f$ into a linear combination of double cosets.
 
 Actually we work modulo the center, i.e. over $PGSp_4(\mathbb{Q}\_{p})$, so this decomposition is in terms of (the double cosets corresponding to) $T\_{0,m,l}$ satisfying the positivity condition $0 \leq 2m \leq l$. The code can be easily adapted to handle the general case.
 
