@@ -1,12 +1,18 @@
 # GSp(4) Hecke operators
 
-We give a Sage implementation of the Satake isomorphism for the group $GSp_4(\mathbb{Q}_p)$.
+This is a companion for the paper **Mass equidistribution for lifts on hyperbolic 4-manifolds**, by *Alexandre de Faveri* and *Zvi Shem-Tov*.
 
-The Jupyter notebook GSp(4).ipynb provides two main functions: satake(n, m, l), which computes the image of (the double coset corresponding to) 
-$T_{n, m, l} := \mathrm{diag}(p^n, p^m, p^{l-n}, p^{l-m})$, and find_sols(f), which decomposes the pre-image of $f$ into double cosets. 
+It provides a Sage implementation of the Satake isomorphism for the Hecke algebra of $GSp_4(\mathbb{Q}\_{p})$.
 
-Actually we work modulo the center, i.e. in $PGSp_4(\mathbb{Q}_p)$, so this decomposition is in terms of (the double cosets corresponding to) $T_{0, m, l}$ 
-satisfying the positivity condition $0 \leq m \leq l/2$. The code can be easily adapted to handle the general case.
+## Contents
+
+The Jupyter notebook `GSp(4).ipynb` provides two main functions: `satake(n, m, l)`, which computes the image of (the double coset corresponding to) $T_{n,m,l} := \mathrm{diag}(p^n,p^m,p^{l-n},p^{l-m})$, and `find_sols(f)`, which decomposes the inverse image of an arbitrary $f$ into a linear combination of double cosets.
+
+Actually we work modulo the center, i.e. over $PGSp_4(\mathbb{Q}\_{p})$, so this decomposition is in terms of (the double cosets corresponding to) $T\_{0,m,l}$ satisfying the positivity condition $0 \leq 2m \leq l$. The code can be easily adapted to handle the general case.
+
+## Mathematical conventions
+
+See Appendix B of the aforementioned paper for the conventions used in the code.
 
 ## Acknowledgements
 
