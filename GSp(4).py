@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 var('p')
@@ -20,11 +20,7 @@ LR.<q,y,z> = LaurentPolynomialRing(QQ, 3)
 
 
 
-# In[ ]:
-
-
-############################## Computation of volumes ##############################
-
+# **############################## Computation of volumes ##############################**
 
 # In[ ]:
 
@@ -32,7 +28,7 @@ LR.<q,y,z> = LaurentPolynomialRing(QQ, 3)
 
 
 
-# In[3]:
+# In[2]:
 
 
 # In what follows, t = t(n, m, l) is the Hecke operator corresponding to diag(p^n, p^m, p^(l-n), p^(l-m))
@@ -143,11 +139,7 @@ def volume(n,m,l):
 
 
 
-# In[12]:
-
-
-############################## Computation of roots ##############################
-
+# **############################## Computation of roots ##############################**
 
 # In[ ]:
 
@@ -155,7 +147,7 @@ def volume(n,m,l):
 
 
 
-# In[13]:
+# In[3]:
 
 
 # Positive roots
@@ -199,11 +191,7 @@ def is_positive(n,m,l):
 
 
 
-# In[19]:
-
-
-############################## Macdonald's formula ##############################
-
+# **############################## Macdonald's formula ##############################**
 
 # In[ ]:
 
@@ -211,7 +199,7 @@ def is_positive(n,m,l):
 
 
 
-# In[20]:
+# In[4]:
 
 
 # Denote t = t(n, m, l)
@@ -252,11 +240,7 @@ def satake(n,m,l):
 
 
 
-# In[21]:
-
-
-############################## Decomposition into basic Hecke operators ##############################
-
+# **############################## Decomposition into basic Hecke operators ##############################**
 
 # In[ ]:
 
@@ -264,7 +248,7 @@ def satake(n,m,l):
 
 
 
-# In[22]:
+# In[5]:
 
 
 # Decompose Satake polynomial f into the linear basis { satake(0,m,l) } with 0 <= 2*m <= l <= lim.
@@ -315,7 +299,7 @@ def decompose_satake(f, lim=0):
     return {index : Rat(coeff) for coeff, index in zip(sol, index_set)}
 
 
-# In[23]:
+# In[6]:
 
 
 # Return absolute value of a univariate polynomial in q (for sufficiently large q)
@@ -351,7 +335,7 @@ def estimate_L1_H(solution):
     return q^(L1_H.degree())
 
 
-# In[24]:
+# In[7]:
 
 
 # Display decomposition of Satake polynomial f into basic Hecke operators, where (m, l) corresponds to coefficient of t(0, m, l).
@@ -382,11 +366,7 @@ def find_sols(f, lim=0):
 
 
 
-# In[25]:
-
-
-############################## Some tests ##############################
-
+# **############################## Basic tests ##############################**
 
 # In[ ]:
 
@@ -394,7 +374,7 @@ def find_sols(f, lim=0):
 
 
 
-# In[26]:
+# In[8]:
 
 
 T1 = satake(0, 0, 1)
@@ -402,25 +382,25 @@ T2 = satake(0, 1, 2)
 T3 = satake(0, 0, 2)
 
 
-# In[27]:
+# In[9]:
 
 
 find_sols(1)
 
 
-# In[28]:
+# In[10]:
 
 
 find_sols(T1)
 
 
-# In[29]:
+# In[11]:
 
 
 find_sols(T2)
 
 
-# In[30]:
+# In[12]:
 
 
 find_sols(T3)
@@ -432,19 +412,41 @@ find_sols(T3)
 
 
 
-# In[31]:
+# In[13]:
 
 
 find_sols(T1 - T2) # check that L1(G) norm works (should be around p^4, not 0)
 
 
-# In[32]:
+# In[ ]:
 
 
-find_sols(T1^2) # Check relation T1^2 − (p + 1)*T2 − T3 = 1 + p + p^2 + p^3, which is (17) of our non-escape of mass paper
 
 
-# In[33]:
+
+# Check relation T1^2 − (p + 1)*T2 − T3 = 1 + p + p^2 + p^3, which is (17) of our non-escape of mass paper
+
+# In[14]:
+
+
+find_sols(T1^2)
+
+
+# In[ ]:
+
+
+
+
+
+# In[15]:
+
+
+# Check action by the center: multiplying by diag(p^a, p^a, p^a, p^a) we send (n, m, l) to (n+a, m+a, l+2*a)
+def center(a,n,m,l):
+    return (n+a, m+a, l+2*a)
+
+
+# In[16]:
 
 
 # Check invariance under center
@@ -460,10 +462,24 @@ satake(n,m,l) == satake(d,e,f)
 
 
 
-# In[34]:
+# **############################## More tests ##############################**
+
+# In[ ]:
 
 
-############################## Operators used in Lemma 9 and their decompositions ##############################
+
+
+
+# In[17]:
+
+
+# Return Hecke operator T(p^r) = sum_{0 <= n <= m <= r/2} t(n, m, r).
+def Hecke_T(r):
+    res= 0
+    for m in range(0, floor(r/2)+1):
+        for n in range(0, m+1):
+            res += satake(n, m, r)
+    return res
 
 
 # In[ ]:
@@ -472,13 +488,81 @@ satake(n,m,l) == satake(d,e,f)
 
 
 
-# In[35]:
+# Check relation in **[BP16, pg. 1011]**.
+# 
+# **[BP16]** *Valentin Blomer and Anke Pohl, **The sup-norm problem on the Siegel modular space of rank two**, Amer. J. Math. 138 (2016), no. 4, 999–1027*
+
+# In[18]:
+
+
+Hecke_T(4) == (q^4 + 2*q^6)*Hecke_T(1)^2 - Hecke_T(1)^4 + q^4*Hecke_T(2) + Hecke_T(2)*Hecke_T(1)^2 + Hecke_T(2)^2 - q^(12)
+
+
+# In[ ]:
+
+
+
+
+
+# In[19]:
+
+
+# Returns True iff [BP16, (4.9)] holds. Should hold for all r >= 2.
+def check_BP(r):
+    LHS = Hecke_T(r) * Hecke_T(2)
+
+    L1 = (
+        satake(0, 0, r+2) + (q^2 + 1) * satake(0, 1, r+2) 
+        + (q^4 + q^2 + 1) * sum( satake(0, b, r+2) for b in range(2, 1 + floor((r+2)/2)) )
+    )
+    L2 = (q^6 + q^4 + q^2 + 1) * satake(1, 1, r+2)
+    L3 = (q^8 + 2*q^6 + q^4 + q^2 + 1) * sum( satake(0, b, r) * satake(1, 1, 2) 
+                                              for b in range(1, 1 + floor(r/2)) )
+    double_sum = sum(satake(0, b, r-2*a) * satake(a+1, a+1, 2*a+2) 
+                     for a in range(1, 1 + floor(r/2)) for b in range(0, 1 + floor((r-2*a)/2)) )
+    L4 = (q^(12) + q^(10) + 2*q^8 + 2*q^6 + q^4 + q^2 + 1) * double_sum
+
+    RHS = L1 + L2 + L3 + L4 
+
+    return LHS == RHS
+
+
+# In[ ]:
+
+
+
+
+
+# Check the relation in **[BP16, (4.9)]**, which should be valid for all $r \geq 2$.
+
+# In[20]:
+
+
+for r in range(2, 10):
+    print(f'Check for r = {r}: {check_BP(r)}.')
+
+
+# In[ ]:
+
+
+
+
+
+# **############################## Operators used in Lemma 9 and their decompositions ##############################**
+
+# In[ ]:
+
+
+
+
+
+# In[21]:
 
 
 find_sols(T2)
 
 
-# In[36]:
+# In[22]:
 
 
 find_sols(T2^2)
@@ -490,19 +574,19 @@ find_sols(T2^2)
 
 
 
-# In[37]:
+# In[23]:
 
 
 sigma_p = T2^2 - (q^2+1) * T1^2 # Second operator from paper 
 
 
-# In[38]:
+# In[24]:
 
 
 find_sols(sigma_p) # Get cancellation on L1(H) norm (from p^5 to p^3)
 
 
-# In[39]:
+# In[25]:
 
 
 find_sols(sigma_p^2) # Get L1(H) norm p^10, so no cancellation (but will gain on these diagonal terms from amplification)
